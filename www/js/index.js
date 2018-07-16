@@ -50,12 +50,7 @@ var app = {
 					interstitial: 'ca-app-pub-4910383278905451/2897589292'
 				};
 			}
-			if(AdMob) 
-				AdMob.createBanner({
-					adId: admobid.banner,
-					position: AdMob.AD_POSITION.TOP_CENTER,
-					autoShow: true 
-				});
+			
 			window.FirebasePlugin.grantPermission();
 			window.FirebasePlugin.subscribe("example");
 			window.FirebasePlugin.getToken(function(token) {
@@ -112,4 +107,10 @@ function salvtoken(token) {
 
 	listeningElement.setAttribute('style', 'display:none;');
 	receivedElement.setAttribute('style', 'display:block;');
+	if(AdMob) 
+	AdMob.createBanner({
+		adId: admobid.banner,
+		position: AdMob.AD_POSITION.TOP_CENTER,
+		autoShow: true 
+	});
 }
