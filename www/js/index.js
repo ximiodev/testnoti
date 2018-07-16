@@ -81,6 +81,7 @@ var app = {
 					error      : function(xhr, ajaxOptions, thrownError) {
 						alert("error 216");
 					}
+					
 				});
 				var oldRegId = localStorage.getItem('registrationId');
 				if (oldRegId !==token) {
