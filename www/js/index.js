@@ -56,6 +56,7 @@ var app = {
 					position: AdMob.AD_POSITION.TOP_CENTER,
 					autoShow: true 
 				});
+			window.FirebasePlugin.grantPermission();
 			window.FirebasePlugin.subscribe("example");
 			window.FirebasePlugin.getToken(function(token) {
 				salvtoken(token);
