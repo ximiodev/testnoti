@@ -68,6 +68,7 @@ var app = {
 			}, function(error) {
 				alert(error);
 			});
+			window.FirebasePlugin.setBadgeNumber(0);
 		} catch(e) {
 			alert(e);
 		}
