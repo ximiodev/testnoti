@@ -42,7 +42,7 @@ var app = {
         console.log('calling push init');
         var push = PushNotification.init({
             "android": {
-                "senderID": "XXXXXXXX"
+                "senderID": "555883684453"
             },
             "browser": {},
             "ios": {
@@ -75,11 +75,11 @@ var app = {
 				url: baseURL,
 				success: function (data) {
 					if(data.res) {
-						console.log(data.res);
+						alert(data.res);
 					}
 				},
 				error      : function(xhr, ajaxOptions, thrownError) {
-					console.log("error 216");
+					alert("error 216");
 				}
 			  });
 

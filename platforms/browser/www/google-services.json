@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "555883684453",
+    "firebase_url": "https://whereismycar2-c5324.firebaseio.com",
+    "project_id": "whereismycar2-c5324",
+    "storage_bucket": "whereismycar2-c5324.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:555883684453:android:65993629958df579",
+        "android_client_info": {
+          "package_name": "com.sof.whereismycar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "555883684453-84560k9c3lca954cleqs4ma0pl238jkr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHlEnb3ZJGhoi5IA67qe-ZmsCWCFJ2lik"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
