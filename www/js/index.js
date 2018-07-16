@@ -34,82 +34,72 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        console.log('Received Device Ready Event');
-        console.log('calling setup push');
-        app.setupPush();
-    },
-    setupPush: function() {
-        console.log('calling push init');
-        var push = PushNotification.init({
-            "android": {
-                "senderID": "555883684453"
-            },
-            "browser": {},
-            "ios": {
-                "sound": true,
-                "vibration": true,
-                "badge": true
-            },
-            "windows": {}
-        });
-        console.log('after init');
-
-        push.on('registration', function(data) {
-			var user_platform = device.platform;
-            console.log('registration event: ' + data.registrationId);
-			var datos = {
-				'accion':'registrarDev',
-				'user_platform': user_platform,
-				'registrationId': data.registrationId
+		try {
+			console.log('Received Device Ready Event');
+			console.log('calling setup push');
+			var admobid = {};
+			
+			if( /(android)/i.test(navigator.userAgent) ) { // for android & amazon-fireos
+				admobid = {
+					banner: 'ca-app-pub-4910383278905451/9199602365', // or DFP format "/6253334/dfp_example_ad"
+					interstitial: 'cca-app-pub-4910383278905451/5078872411'
+				};
+			} else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
+				admobid = {
+					banner: 'ca-app-pub-4910383278905451/3855447740', // or DFP format "/6253334/dfp_example_ad"
+					interstitial: 'ca-app-pub-4910383278905451/2897589292'
+				};
 			}
-			 
-			push.setApplicationIconBadgeNumber(() => {
-				console.log('success');
-			}, () => {
-				console.log('error');
-			}, 0);
-			 $.ajax({
-				type: 'POST',
-				data: datos,
-				dataType: 'json',
-				url: baseURL,
-				success: function (data) {
-					if(data.res) {
-						alert(data.res);
-					}
-				},
-				error      : function(xhr, ajaxOptions, thrownError) {
-					alert("error 216");
+			if(AdMob) 
+				AdMob.createBanner({
+					adId: admobid.banner,
+					position: AdMob.AD_POSITION.TOP_CENTER,
+					autoShow: true 
+				});
+			  
+			window.FirebasePlugin.getToken(function(token) {
+				console.log(token);
+					
+					
+				var user_platform = device.platform;
+				console.log('registration event: ' + token);
+				var datos = {
+					'accion':'registrarDev',
+					'user_platform': user_platform,
+					'registrationId': token
 				}
-			  });
+				$.ajax({
+					type: 'POST',
+					data: datos,
+					dataType: 'json',
+					url: baseURL,
+					success: function (data) {
+						if(data.res) {
+							alert(data.res);
+						}
+					},
+					error      : function(xhr, ajaxOptions, thrownError) {
+						alert("error 216");
+					}
+				});
+				var oldRegId = localStorage.getItem('registrationId');
+				if (oldRegId !==token) {
+					// Save new registration ID
+					localStorage.setItem('registrationId', token);
+					// Post registrationId to your app server as the value has changed
+				}
 
-            var oldRegId = localStorage.getItem('registrationId');
-            if (oldRegId !== data.registrationId) {
-                // Save new registration ID
-                localStorage.setItem('registrationId', data.registrationId);
-                // Post registrationId to your app server as the value has changed
-            }
+				var parentElement = document.getElementById('registration');
+				var listeningElement = parentElement.querySelector('.waiting');
+				var receivedElement = parentElement.querySelector('.received');
 
-            var parentElement = document.getElementById('registration');
-            var listeningElement = parentElement.querySelector('.waiting');
-            var receivedElement = parentElement.querySelector('.received');
-
-            listeningElement.setAttribute('style', 'display:none;');
-            receivedElement.setAttribute('style', 'display:block;');
-        });
-
-        push.on('error', function(e) {
-            console.log("push error = " + e.message);
-        });
-
-        push.on('notification', function(data) {
-            console.log('notification event');
-            navigator.notification.alert(
-                data.message,         // message
-                null,                 // callback
-                data.title,           // title
-                'Ok'                  // buttonName
-            );
-       });
+				listeningElement.setAttribute('style', 'display:none;');
+				receivedElement.setAttribute('style', 'display:block;');
+			}, function(error) {
+				console.error(error);
+			});
+		} catch(e) {
+			alert(e);
+		}
     }
 };

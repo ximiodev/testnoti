@@ -48,5 +48,29 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-plugin-firebase": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-firebase"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-admobpro-firebase": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-admobpro-firebase@2.31.6"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-extension": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-extension"
+        },
+        "is_top_level": false,
+        "variables": {}
     }
 }

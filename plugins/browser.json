@@ -25,7 +25,17 @@
         },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.sof.whereismycar"
+        },
+        "cordova-plugin-firebase": {
+            "PACKAGE_NAME": "com.sof.whereismycar"
+        },
+        "cordova-plugin-admobpro-firebase": {
+            "PACKAGE_NAME": "com.sof.whereismycar"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-extension": {
+            "PACKAGE_NAME": "com.sof.whereismycar"
+        }
+    }
 }
