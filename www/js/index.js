@@ -57,9 +57,12 @@ var app = {
 					autoShow: true 
 				});
 			  
-			cordova.plugins.firebase.auth.getIdToken().then(function(token) {
-				salvtoken(token);
-			});
+			alert('Token to send to backend: ' + firebase.Messaging.token);
+			salvtoken(firebase.Messaging.token);
+
+			firebase.Messaging.on('tokenChanged',
+				({token}) => salvtoken(token));
+
 			//~ window.FirebasePlugin.setBadgeNumber(0);
 		} catch(e) {
 			alert(e);
