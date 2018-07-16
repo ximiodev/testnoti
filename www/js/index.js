@@ -50,21 +50,17 @@ var app = {
 					interstitial: 'ca-app-pub-4910383278905451/2897589292'
 				};
 			}
-			
-			window.FirebasePlugin.grantPermission();
-			window.FirebasePlugin.subscribe("example");
-			window.FirebasePlugin.getToken(function(token) {
+			if(AdMob) 
+				AdMob.createBanner({
+					adId: admobid.banner,
+					position: AdMob.AD_POSITION.TOP_CENTER,
+					autoShow: true 
+				});
+			  
+			cordova.plugins.firebase.auth.getIdToken().then(function(token) {
 				salvtoken(token);
-			}, function(error) {
-				alert(error);
 			});
-			window.FirebasePlugin.onTokenRefresh(function(token) {
-				// save this server-side and use it to push notifications to this device
-				salvtoken(token);
-			}, function(error) {
-				alert(error);
-			});
-			window.FirebasePlugin.setBadgeNumber(0);
+			//~ window.FirebasePlugin.setBadgeNumber(0);
 		} catch(e) {
 			alert(e);
 		}
@@ -107,10 +103,4 @@ function salvtoken(token) {
 
 	listeningElement.setAttribute('style', 'display:none;');
 	receivedElement.setAttribute('style', 'display:block;');
-	if(AdMob) 
-	AdMob.createBanner({
-		adId: admobid.banner,
-		position: AdMob.AD_POSITION.TOP_CENTER,
-		autoShow: true 
-	});
 }
