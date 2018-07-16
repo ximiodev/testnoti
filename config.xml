@@ -46,7 +46,6 @@
     </platform>
     <platform name="android">
 	  <resource-file src="google-services.json" target="www/google-services.json" />
-	  <resource-file src="ringo.mp3" target="www/sonidos/ringo.mp3" />
 	</platform>
     <platform name="ios">
         <icon height="57" platform="ios" src="www/res/icon/ios/icon.png" width="57" />
