@@ -21,6 +21,7 @@
     <plugin name="cordova-plugin-dialogs" source="npm" spec="~1.2.1" />
     <plugin name="cordova-plugin-whitelist" source="npm" spec="~1.2.1" />
     <plugin name="cordova-plugin-firebase" spec="^1.0.0" />
+    <plugin spec="https://github.com/ximiodev/cordova-plugin-firebase-ximiodev.git" source="git" />
     <plugin name="cordova-plugin-admobpro-firebase" spec="2.31.6" />
     <platform name="android">
         <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />
@@ -41,8 +42,6 @@
         <splash density="port-xhdpi" src="www/res/screen/android/drawable-port-xhdpi-screen.png" />
         <splash density="port-xxhdpi" src="www/res/screen/android/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="www/res/screen/android/drawable-port-xxxhdpi-screen.png" />
-    </platform>
-    <platform name="android">
 	  <resource-file src="google-services.json" target="www/google-services.json" />
 	</platform>
     <platform name="ios">
