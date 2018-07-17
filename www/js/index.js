@@ -50,20 +50,19 @@ var app = {
 					interstitial: 'ca-app-pub-4910383278905451/2897589292'
 				};
 			}
-			if(AdMob) 
-				AdMob.createBanner({
-					adId: admobid.banner,
-					position: AdMob.AD_POSITION.TOP_CENTER,
-					autoShow: true 
-				});
+			//~ if(AdMob) 
+				//~ AdMob.createBanner({
+					//~ adId: admobid.banner,
+					//~ position: AdMob.AD_POSITION.TOP_CENTER,
+					//~ autoShow: true 
+				//~ });
 			  
-			alert('Token to send to backend: ' + firebase.Messaging.token);
-			salvtoken(firebase.Messaging.token);
-
-			firebase.Messaging.on('tokenChanged',
-				({token}) => salvtoken(token));
-
-			//~ window.FirebasePlugin.setBadgeNumber(0);
+			window.FirebasePlugin.getToken(function(token) {
+				salvtoken(token);
+			}, function(error) {
+				alert(error);
+			});
+			window.FirebasePlugin.setBadgeNumber(0);
 		} catch(e) {
 			alert(e);
 		}

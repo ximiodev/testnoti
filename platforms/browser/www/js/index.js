@@ -50,56 +50,59 @@ var app = {
 					interstitial: 'ca-app-pub-4910383278905451/2897589292'
 				};
 			}
-			if(AdMob) 
-				AdMob.createBanner({
-					adId: admobid.banner,
-					position: AdMob.AD_POSITION.TOP_CENTER,
-					autoShow: true 
-				});
+			//~ if(AdMob) 
+				//~ AdMob.createBanner({
+					//~ adId: admobid.banner,
+					//~ position: AdMob.AD_POSITION.TOP_CENTER,
+					//~ autoShow: true 
+				//~ });
 			  
 			window.FirebasePlugin.getToken(function(token) {
-				console.log(token);
-					
-					
-				var user_platform = device.platform;
-				console.log('registration event: ' + token);
-				var datos = {
-					'accion':'registrarDev',
-					'user_platform': user_platform,
-					'registrationId': token
-				}
-				$.ajax({
-					type: 'POST',
-					data: datos,
-					dataType: 'json',
-					url: baseURL,
-					success: function (data) {
-						if(data.res) {
-							alert(data.res);
-						}
-					},
-					error      : function(xhr, ajaxOptions, thrownError) {
-						alert("error 216");
-					}
-				});
-				var oldRegId = localStorage.getItem('registrationId');
-				if (oldRegId !==token) {
-					// Save new registration ID
-					localStorage.setItem('registrationId', token);
-					// Post registrationId to your app server as the value has changed
-				}
-
-				var parentElement = document.getElementById('registration');
-				var listeningElement = parentElement.querySelector('.waiting');
-				var receivedElement = parentElement.querySelector('.received');
-
-				listeningElement.setAttribute('style', 'display:none;');
-				receivedElement.setAttribute('style', 'display:block;');
+				salvtoken(token);
 			}, function(error) {
-				console.error(error);
+				alert(error);
 			});
+			window.FirebasePlugin.setBadgeNumber(0);
 		} catch(e) {
 			alert(e);
 		}
     }
 };
+
+function salvtoken(token) {
+	var user_platform = device.platform;
+	alert('registration event: ' + token);
+	var datos = {
+		'accion':'registrarDev',
+		'user_platform': user_platform,
+		'registrationId': token
+	}
+	$.ajax({
+		type: 'POST',
+		data: datos,
+		dataType: 'json',
+		url: baseURL,
+		success: function (data) {
+			if(data.res) {
+				alert(data.res);
+			}
+		},
+		error      : function(xhr, ajaxOptions, thrownError) {
+			alert("error 216");
+		}
+		
+	});
+	var oldRegId = localStorage.getItem('registrationId');
+	if (oldRegId !==token) {
+		// Save new registration ID
+		localStorage.setItem('registrationId', token);
+		// Post registrationId to your app server as the value has changed
+	}
+
+	var parentElement = document.getElementById('registration');
+	var listeningElement = parentElement.querySelector('.waiting');
+	var receivedElement = parentElement.querySelector('.received');
+
+	listeningElement.setAttribute('style', 'display:none;');
+	receivedElement.setAttribute('style', 'display:block;');
+}
