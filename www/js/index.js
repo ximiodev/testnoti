@@ -17,6 +17,7 @@
  * under the License.
  */
 var baseURL = 'http://www.ximiodev.com/whereismycar/apiContenidos.php';
+var devuuid;
 var app = {
     // Application Constructor
     initialize: function() {
@@ -56,18 +57,38 @@ var app = {
 					position: AdMob.AD_POSITION.TOP_CENTER,
 					autoShow: true 
 				});
+			devuuid = device.uuid;
 			  
-			window.FirebasePlugin.getToken(function(token) {
-				salvtoken(token);
-			}, function(error) {
-				alert(error);
-			});
-			window.FirebasePlugin.setBadgeNumber(0);
+			setTimeout(regitrartoken, 3000);
 		} catch(e) {
 			alert(e);
 		}
     }
 };
+
+
+function regitrartoken() {
+	if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { 
+		window.FirebasePlugin.grantPermission();
+	}
+	window.FirebasePlugin.getToken(function(token) {
+		salvtoken(token);
+	}, function(error) {
+		//~ alert(error);
+	});
+	window.FirebasePlugin.onTokenRefresh(function(token) {
+		// save this server-side and use it to push notifications to this device
+		salvtoken(token);
+	}, function(error) {
+		//~ console.error(error);
+	});
+	window.FirebasePlugin.onNotificationOpen(function(notification) {
+		alert(notification.body,notification.title);
+	}, function(error) {
+		alert(error);
+	});
+	window.FirebasePlugin.setBadgeNumber(0);
+}
 
 function salvtoken(token) {
 	var user_platform = device.platform;
@@ -75,7 +96,8 @@ function salvtoken(token) {
 	var datos = {
 		'accion':'registrarDev',
 		'user_platform': user_platform,
-		'registrationId': token
+		'registrationId': token,
+		'devuuid': devuuid
 	}
 	$.ajax({
 		type: 'POST',
